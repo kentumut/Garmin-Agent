@@ -1,0 +1,6 @@
+sounddevice
+scipy
+faster-whisper
+torch
+numpy
+torchaudio
