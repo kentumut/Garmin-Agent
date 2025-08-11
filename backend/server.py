@@ -2,7 +2,7 @@
 """
 Jarvis AI Backend Server
 
-Enterprise-level FastAPI server for speech-to-text transcription using Faster Whisper.
+FastAPI server for speech-to-text transcription using Faster Whisper.
 Supports automatic port discovery and PyInstaller packaging.
 """
 import argparse

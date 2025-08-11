@@ -1,13 +1,13 @@
 {
   "name": "jarvis-ai",
   "version": "1.0.0",
-  "description": "Enterprise-level AI voice assistant with Electron and React",
+  "description": "AI voice assistant with Electron and React",
   "main": "dist/main/main.js",
   "author": "Your Name",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/jarvis-ai.git"
+    "url": "https://github.com/kentumut/jarvis-ai.git"
   },
   "keywords": [
     "electron",

@@ -33,7 +33,7 @@ def create_app() -> FastAPI:
     
     app = FastAPI(
         title="Jarvis AI Backend",
-        description="Enterprise AI voice assistant backend with speech-to-text transcription",
+        description="AI voice assistant backend with speech-to-text transcription",
         version="1.0.0",
         docs_url="/docs",
         redoc_url="/redoc",

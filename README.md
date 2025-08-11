@@ -1,6 +1,6 @@
 # 🤖 Jarvis AI - Voice Assistant
 
-Enterprise-level AI voice assistant with Electron + React frontend and FastAPI backend.
+AI voice assistant with Electron + React frontend and FastAPI backend.
 
 ## 🚀 Quick Start
 
