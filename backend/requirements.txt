@@ -1,0 +1,14 @@
+# FastAPI and server dependencies
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# AI/ML dependencies
+faster-whisper>=0.10.0
+
+# Development and packaging
+pyinstaller>=6.0.0
+
+# Optional: Additional dependencies for enhanced functionality
+# torch>=2.0.0  # Uncomment for GPU support
+# torchaudio>=2.0.0  # Uncomment for GPU support
