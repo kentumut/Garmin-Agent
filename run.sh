@@ -18,14 +18,26 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
-# Check if Python3 is installed
-if ! command -v python3 &> /dev/null; then
-    echo "❌ Python3 is not installed. Please install Python3"
+# Find Python executable (try different common names)
+PYTHON_CMD=""
+for cmd in python3 python py; do
+    if command -v "$cmd" &> /dev/null; then
+        # Verify it's Python 3
+        if "$cmd" -c "import sys; exit(0 if sys.version_info[0] >= 3 else 1)" 2>/dev/null; then
+            PYTHON_CMD="$cmd"
+            break
+        fi
+    fi
+done
+
+if [ -z "$PYTHON_CMD" ]; then
+    echo "❌ Python 3 is not installed. Please install Python 3"
+    echo "💡 Tried: python3, python, py"
     exit 1
 fi
 
 echo "✅ Node.js $(node --version) detected"
-echo "✅ Python3 $(python3 --version) detected"
+echo "✅ Python $($PYTHON_CMD --version) detected (using: $PYTHON_CMD)"
 echo
 
 # Setup Backend
@@ -35,7 +47,7 @@ cd backend
 # Create virtual environment if it doesn't exist
 if [ ! -d ".venv" ]; then
     echo "📦 Creating Python virtual environment..."
-    python3 -m venv .venv
+    "$PYTHON_CMD" -m venv .venv
 fi
 
 # Activate virtual environment and install dependencies

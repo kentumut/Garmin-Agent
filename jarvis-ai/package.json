@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AI voice assistant with Electron and React",
   "main": "dist/main/main.js",
-  "author": "Your Name",
+  "author": "Kent Umut",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:electron\"",
-    "dev:backend": "cd ../backend && python server.py --port 0",
+    "dev:backend": "cd ../backend && source .venv/bin/activate && python server.py --port 0",
     "dev:electron": "concurrently \"npm run build:electron:watch\" \"npm run dev:vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron dist/main/main.js\"",
     "dev:vite": "vite",
     "build": "npm run build:backend && npm run build:electron && npm run build:renderer",

@@ -4,9 +4,19 @@ AI voice assistant with Electron + React frontend and FastAPI backend.
 
 ## 🚀 Quick Start
 
+**macOS/Linux:**
+
 ```bash
 ./run.sh
 ```
+
+**Windows:**
+
+```batch
+run.bat
+```
+
+_Or use `./run.sh` in Git Bash_
 
 Press `⌘⇧Space` (Cmd+Shift+Space) to activate voice recording.
 

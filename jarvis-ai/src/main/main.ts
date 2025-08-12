@@ -192,28 +192,48 @@ class JarvisApp {
   }
 
   private findBackendBinary(): string | null {
+    // Cross-platform backend script detection
+    const isWindows = process.platform === 'win32'
+    const scriptExtension = isWindows ? '.bat' : '.sh'
+    const binaryName = isWindows ? 'jarvis-backend.exe' : 'jarvis-backend'
+    
     const candidates = [
-      // Development mode with shell script
+      // Environment variable override
       process.env.JARVIS_BACKEND_BIN,
-      path.join(process.cwd(), '../backend/start-backend.sh'),
+      
+      // Development mode - try multiple locations
+      path.join(process.cwd(), '..', 'backend', `start-backend${scriptExtension}`),
+      path.join(__dirname, '..', '..', '..', 'backend', `start-backend${scriptExtension}`),
+      path.join(process.cwd(), 'backend', `start-backend${scriptExtension}`),
       
       // Production mode
-      path.join(process.resourcesPath, 'backend', 'jarvis-backend'),
-      path.join(__dirname, '../../backend/jarvis-backend'),
-      path.join(process.cwd(), 'dist', 'backend', 'jarvis-backend')
+      path.join(process.resourcesPath, 'backend', binaryName),
+      path.join(__dirname, '..', '..', 'backend', binaryName),
+      path.join(process.cwd(), 'dist', 'backend', binaryName)
     ].filter(Boolean) as string[]
 
+    console.log('Looking for backend binary in candidates:', candidates)
+
     for (const candidate of candidates) {
-      if (this.isDevelopment && candidate.endsWith('.sh')) {
-        // In development, check if shell script exists
+      try {
         if (fs.existsSync(candidate)) {
-          return candidate
+          const stats = fs.statSync(candidate)
+          if (this.isDevelopment && (candidate.endsWith('.sh') || candidate.endsWith('.bat'))) {
+            // Development mode - script file
+            console.log(`Found backend script: ${candidate}`)
+            return candidate
+          } else if (!this.isDevelopment && stats.isFile()) {
+            // Production mode - binary file
+            console.log(`Found backend binary: ${candidate}`)
+            return candidate
+          }
         }
-      } else if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
-        return candidate
+      } catch (error) {
+        console.warn(`Error checking candidate ${candidate}:`, error)
       }
     }
 
+    console.error('No backend binary found in any candidate location')
     return null
   }
 
